@@ -81,8 +81,16 @@
     * 인터셉트에서 request, response 객체 변경이 불가능한 이유
     * 필터는 스프링 빈 등록이 가능한가요?
     * 인터셉트와 AOP 비교
+* JDBC 란?
+    * JdbcTemplate 클래스는 무엇이고 어떻게 사용하나요?
+* DAO 와 DTO 란?
 * ORM 이란?
     * ORM, JPA, Hibernate 장단점
+* MyBatis 란?
+    * MyBatis 와 JPA 의 차이
+* JPA 에서 N+1 문제가 발생하는 이유와 해결방법
+* Spring Security 란 무엇인가요?
+    * Spring Security 인증 프로세스는 어떻게 되나요?
 
 <br>
 
