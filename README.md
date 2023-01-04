@@ -1,13 +1,13 @@
 # tech-sharing
 
-- [운영체제](https://github.com/Team-Psyduck/tech-sharing/tree/readme#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C)
-- [네트워크](https://github.com/Team-Psyduck/tech-sharing/tree/readme#%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC)
-- [데이터베이스](https://github.com/Team-Psyduck/tech-sharing/tree/readme#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4)
-- [자료구조](https://github.com/Team-Psyduck/tech-sharing/tree/readme#%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0)
-- [WEB](https://github.com/Team-Psyduck/tech-sharing/tree/readme#web)
-- [Java](https://github.com/Team-Psyduck/tech-sharing/tree/readme#java)
-- [Spring](https://github.com/Team-Psyduck/tech-sharing/tree/readme#spring)
-- [디자인패턴](https://github.com/Team-Psyduck/tech-sharing/tree/readme#%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4)
+- [운영체제](https://github.com/Team-Psyduck/tech-sharing/tree/main#%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C)
+- [네트워크](https://github.com/Team-Psyduck/tech-sharing/tree/main#%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC)
+- [데이터베이스](https://github.com/Team-Psyduck/tech-sharing/tree/main#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4)
+- [자료구조](https://github.com/Team-Psyduck/tech-sharing/tree/main#%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0)
+- [WEB](https://github.com/Team-Psyduck/tech-sharing/tree/main#web)
+- [Java](https://github.com/Team-Psyduck/tech-sharing/tree/main#java)
+- [Spring](https://github.com/Team-Psyduck/tech-sharing/tree/main#spring)
+- [디자인패턴](https://github.com/Team-Psyduck/tech-sharing/tree/main#%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4)
 
 <br>
 
@@ -81,8 +81,16 @@
     * 인터셉트에서 request, response 객체 변경이 불가능한 이유
     * 필터는 스프링 빈 등록이 가능한가요?
     * 인터셉트와 AOP 비교
+* JDBC 란?
+    * JdbcTemplate 클래스는 무엇이고 어떻게 사용하나요?
+* DAO 와 DTO 란?
 * ORM 이란?
     * ORM, JPA, Hibernate 장단점
+* MyBatis 란?
+    * MyBatis 와 JPA 의 차이
+* JPA 에서 N+1 문제가 발생하는 이유와 해결방법
+* Spring Security 란 무엇인가요?
+    * Spring Security 인증 프로세스는 어떻게 되나요?
 
 <br>
 
