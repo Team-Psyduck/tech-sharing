@@ -1,5 +1,30 @@
 # 05. CPU 스케줄링
 
+<!-- TOC -->
+
+- [05. CPU 스케줄링](#05-cpu-스케줄링)
+  - [CPU Scheduler](#cpu-scheduler)
+  - [Dispatcher](#dispatcher)
+  - [CPU Scheduling이 필요한 경우](#cpu-scheduling이-필요한-경우)
+  - [Scheduling Criteria](#scheduling-criteria)
+    - [CPU Utilization (이용률)](#cpu-utilization-이용률)
+    - [Throughput (처리량)](#throughput-처리량)
+    - [Turnaround Time (소요 시간, 반환 시간)](#turnaround-time-소요-시간-반환-시간)
+    - [Wating Time (대기 시간)](#wating-time-대기-시간)
+    - [Response Time (응답 시간)](#response-time-응답-시간)
+  - [Scheduling Algorithm](#scheduling-algorithm)
+    - [Nonpreemptive](#nonpreemptive)
+    - [Preemptive](#preemptive)
+    - [Nonpreemptive And Preemptive](#nonpreemptive-and-preemptive)
+    - [CPU가 여러 개인 경우](#cpu가-여러-개인-경우)
+    - [Hard Real-Time Systems](#hard-real-time-systems)
+    - [Soft Real-Time Computing](#soft-real-time-computing)
+    - [Local Scheduling](#local-scheduling)
+    - [Global Scheduling](#global-scheduling)
+  - [Algorithm Evaluation](#algorithm-evaluation)
+
+<!-- /TOC -->
+
 ## CPU Scheduler
 
 > Ready 상태에 있는 프로세스 중 이번에 CPU를 줄 프로세스를 고른다.
