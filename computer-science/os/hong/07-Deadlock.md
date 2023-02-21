@@ -24,6 +24,8 @@
     - Use
     - Release
 
+<br>
+
 ## Deadlock 발생 4가지 조건
 
 1. Mutual exclusion (상호 배제)
@@ -80,7 +82,7 @@
 
 > 자원 요청에 대한 부가적인 정보를 이용해서 deadlock의 가능성이 없는 경우에만 자원을 할당
 
-- 시스템이 unsafe state 에 들어가지 않는 것을 보장한다.
+- 자원 요청시 safe 상태를 유지할 경우에만 자원을 할당
 
 - 방법
     1. 자원 인스턴스가 1개일때
@@ -88,7 +90,23 @@
             - cycle 이 생기지 않는 경우에만 요청 자원을 할당
     2. 자원 인스턴스가 여러개일때
         - Banker's Algorithm 사용
-
+            - 프로세스의 최대 요청 자원이 현재 가용 자원보다 작은 경우에만 요청 자원을 할당
 <br>
 
 ### Deadlock Detection and recovery
+
+> Deadlock 발생은 허용하되 그에 대한 detection 루틴을 두어 deadlock 발견시 recovery
+
+- Detection
+    - Resource 당 instance 가 한개인 경우
+        - cycle 이 발생하면 deadlock 발생
+    - Resource 당 instance 가 여러개인 경우
+        - Banker's Algorithm 과 유사
+
+- Recovery
+    - Process termination
+        - 관련된 모든 프로세스를 제거
+    - Resource Preemption
+        - 비용을 최소화할 목표물을 선정하고 프로세스를 하나씩 제거
+        - Starvation 문제 우려
+            - 동일한 프로세스만 계속해서 victim 으로 선정되는 경우
