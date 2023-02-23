@@ -11,8 +11,13 @@
         - [Overlays](#overlays)
         - [Swapping](#swapping)
         - [Dynamic Linking](#dynamic-linking)
-    - [Allocation of Physical Memory](#allocation-of-physical-memory)
-        - [Contiguous allocation](#contiguous-allocation)
+- [Allocation of Physical Memory](#allocation-of-physical-memory)
+    - [Contiguous allocation](#contiguous-allocation)
+    - [Noncontiguous allocation](#noncontiguous-allocation)
+        - [Paging](#paging)
+            - [Page table](#page-table)
+            - [TLB](#tlb)
+        - [Two-Level Page Table](#two-level-page-table)
 
 <!-- /TOC -->
 
@@ -105,7 +110,7 @@
 
 <br>
 
-## Allocation of Physical Memory
+# Allocation of Physical Memory
 
 > 메모리는 일반적으로 두 영역으로 나뉘어 사용
 
@@ -123,7 +128,7 @@
 
 <br>
 
-### Contiguous allocation
+## Contiguous allocation
 
 > 물리적 메모리에 프로세스를 연속적으로 할당하는 방법
 
@@ -140,3 +145,56 @@
     - 사용 중인 메모리 영역을 한 군데로 몰아 모든 hole 을 한곳으로 모으는 것
     - 매우 비용이 많이 드는 방법
     - run time binding 이 가능해야 한다.
+
+<br>
+
+## Noncontiguous allocation
+
+### Paging
+
+> Program 의 논리적 메모리를 동일한 크기로 잘라서 각각의 페이지를 물리적 메모리에 비어있는 위치에 적재하는 방법
+
+#### Page table
+
+> 페이징 기법에서 주소를 변환할 때, 논리적 메모리의 페이지들이 물리적 메모리의 어느 부분에 올라가있는지 주소를 저장하는 테이블
+
+- 인덱스를 이용해서 물리적 메모리에 적재된 위치를 빠르게 찾을 수 있음.
+- 프로그램마다 page table 이 별도로 존재한다.
+- 메모리에 저장한다.
+    - 메모리 접근 연산에는 2번의 memory access 필요
+        - page table 1번, data/instruction 1번
+
+구성요소
+- PTBR(Page-table base register)
+- PTLR(Page-table limit register)
+
+<br>
+
+#### TLB
+
+> 속도 향상을 위해 `associative register` 혹은 `translation look-aside buffer(TLB)` 라 불리는 고속의 lookup hardware cache 사용
+
+- Main memory 와 CPU 사이에 존재
+    - 주소 변환을 위한 별도의 캐시를 저장
+    - page table 에서 빈번하게 참조되는 일부 entry 를 저장
+
+- page table 을 참조하기 전에 TLB 를 먼저 조회하고 존재하면 바로 메모리에 접근
+- parallel search 가 가능
+
+<br>
+
+### Two-Level Page Table
+
+> 공간 확보를 위해 Page Table 이 내부, 외부로 나눈다.
+
+- 현대 컴퓨터는 address space 가 매우 큰 프로그램 지원
+    - 32 bit (=4GB), 64 bit
+    - page size가 4KB 시 1M 개의 page table entry 필요
+    - 각 page entry 가 4 Byte 시 프로세스 당 4M page table 필요
+
+> 대부분 프로그램은 4GB 의 주소 공간 중 일부만 사용하므로 page table 공간이 심하게 낭비됨.
+
+=> page table 자체를 page 로 구성, 사용되지 않는 주소 공간에 대한 outer page table 엔트리 값은 NULL
+
+- 내부 page table 의 크기는 page size 랑 같다.
+- 외부 page table 은 page 수 만큼 생성되지만, 내부 page table 은 실제 사용되는 page 만 생성된다.
