@@ -198,3 +198,55 @@
 
 - 내부 page table 의 크기는 page size 랑 같다.
 - 외부 page table 은 page 수 만큼 생성되지만, 내부 page table 은 실제 사용되는 page 만 생성된다.
+
+<br>
+
+### Multi-level Paging
+
+> Address Space 가 더 커지면 다단계 페이지 테이블이 필요
+
+- TLB 를 통해 메모리 접근 시간을 줄일 수 있어서 Multi-level Pagin 기법을 사용해도 크게 오버헤드가 발생하지 않음
+
+- Logical memory 의 페이지 갯수만큼 page table 이 생성되는데, 물리적 메모리에 올리지 않을 페이지는 value를 Invalid 로 저장
+
+#### Memory Protection
+
+> Page table 의 각 entry 마다 아래의 bit 을 둔다.
+
+- Protection bit
+  - page 에 대한 접근 권한 (read/write/read-only)
+  - 프로세스에 접근 권한을 둬서 프로그램 내부 코드가 변경되는 것을 방지
+- Valid-invalid bit
+  - invalid : 해당 주소의 frame 에 유효한 내용이 없음을 뜻함 (접근불허)
+    - 프로세스가 그 주소 부분을 사용하지 않는 경우
+
+### Inverted Page Table
+
+> Multi-level paging 으로 인해 page table 의 사이즈가 커지면서 공간 오버헤드 증가를 방지하기 위한 방법
+
+- 프로세스마다 page table 이 존재하는 것이 아니라 물리적 메모리의 frame 갯수만큼 page table 의 entry 가 존재
+  - address 뿐만 아니라 어떤 프로세스인지도 entry에 저장해야함
+
+- physical address 를 바탕으로 logical address 를 탐색하는 역방향 방식
+  - page table 을 전부 탐색해야 주소 변환이 가능해지는 단점 (시간적 오버헤드 발생)
+    - associative register 라는 하드웨어를 이용하여 병렬탐색을 가능하도록 보완
+
+<br>
+
+#### Shared Page
+
+> 여러 프로세스가 같은 Page 를 사용하는 경우 별도로 나눠서 올리는 것이 아니라 하나의 frame 을 공유
+
+- 반드시 read-only 로 설정
+- 모든 프로세스의 logical address space 의 동일한 위치에 존재해야 함
+
+<br>
+
+### Segmentation
+
+> 의미단위로 (code, data, stack) 메모리를 나누는 기법
+
+- 의미단위로 나누기때문에 segment 마다 크기가 동일하지 않음
+  - Sharing 하는 경우에는 용이
+- Segment 의 길이를 저장
+  - 물리적 주소의 base, limit 저장
