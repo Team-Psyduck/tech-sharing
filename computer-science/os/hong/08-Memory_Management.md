@@ -18,6 +18,13 @@
             - [Page table](#page-table)
             - [TLB](#tlb)
         - [Two-Level Page Table](#two-level-page-table)
+        - [Multi-level Paging](#multi-level-paging)
+            - [Memory Protection](#memory-protection)
+        - [Inverted Page Table](#inverted-page-table)
+            - [Shared Page](#shared-page)
+        - [Segmentation](#segmentation)
+            - [Segmentation Architecture](#segmentation-architecture)
+        - [Segmentation with Paging](#segmentation-with-paging)
 
 <!-- /TOC -->
 
@@ -209,6 +216,8 @@
 
 - Logical memory 의 페이지 갯수만큼 page table 이 생성되는데, 물리적 메모리에 올리지 않을 페이지는 value를 Invalid 로 저장
 
+<br>
+
 #### Memory Protection
 
 > Page table 의 각 entry 마다 아래의 bit 을 둔다.
@@ -219,6 +228,8 @@
 - Valid-invalid bit
   - invalid : 해당 주소의 frame 에 유효한 내용이 없음을 뜻함 (접근불허)
     - 프로세스가 그 주소 부분을 사용하지 않는 경우
+
+<br>
 
 ### Inverted Page Table
 
@@ -244,9 +255,36 @@
 
 ### Segmentation
 
-> 의미단위로 (code, data, stack) 메모리를 나누는 기법
+> 의미 단위로 (code, data, stack) 메모리를 나누는 기법
 
-- 의미단위로 나누기때문에 segment 마다 크기가 동일하지 않음
+- **의미 단위**로 나누기때문에 segment 마다 크기가 균일하지 않음
+  - Segment 의 길이를 entry 에 저장
+      - 물리적 주소의 base, limit 저장
   - Sharing 하는 경우에는 용이
-- Segment 의 길이를 저장
-  - 물리적 주소의 base, limit 저장
+  - table 저장을 위한 메모리 소모가 적음
+  - paging 방법보다 hole 이 큼
+
+- Segment 의 길이보다 큰 값을 참조하는 경우 Trap 을 발생
+  - 불합리한 접근
+
+<br>
+
+#### Segmentation Architecture
+
+- Segment-table base register (=STBR)
+    - 물리적 메모리에서 segment table 의 시작 위치
+- Segment-table length register (=STLR)
+    - 프로그램이 사용하는 segment 의 수
+
+<br>
+
+### Segmentation with Paging
+
+> segment-table entry 가 segment 의 base address 를 가지고 있는 것이 아니라 segment 를 구성하는 page table 의 base address 를 가지고 있음
+
+- original Segmentation 만 사용하지 않고, 보통 Paging 을 같이 사용함
+- physical memory 에는 page 단위로 저장
+- segment table 에서는 의미단위로 저장
+    - segment-length, page-table base
+
+> Segmentation 과 Paging 의 장점을 모두 가질 수 있음
