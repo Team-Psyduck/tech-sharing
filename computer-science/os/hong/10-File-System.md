@@ -24,6 +24,7 @@
         - [VFS - Virtual File System](#vfs---virtual-file-system)
         - [NFS - Network File System](#nfs---network-file-system)
     - [Page Cache and Buffer Cache](#page-cache-and-buffer-cache)
+        - [Unified Buffer Cache](#unified-buffer-cache)
 
 <!-- /TOC -->
 
@@ -268,11 +269,18 @@ File
 ## Page Cache and Buffer Cache
 
 - Page Cache
-    - paging system 에서 사용하는 page frame 을 caching 의 관점에서 설명하는 용어
+    - **paging system** 에서 사용하는 page frame 을 caching 의 관점에서 설명하는 용어
     - Memory-Mapped I/O 를 쓰는 경우 file의 I/O 에서도 page cache 사용
 - Memory-Mapped I/O
     - File 을 접근할 때, File 의 일정부분을 virtual memory 에 mapping 시키는 방식
 - Buffer Cache
-    - 파일시스템을 통한 I/O 연산은 메모리의 특정 영역인 buffer cache 사용
+    - **파일시스템**을 통한 I/O 연산은 메모리의 특정 영역인 buffer cache 사용
 - Unified Buffer Cache
     - 최근 OS에서는 buffer cache 와 page cache 를 같이 관리
+
+<br>
+
+### Unified Buffer Cache
+
+- I/O using 을 하던, memory-mapped I/O 를 하던 File system 에서 buffer cache 로 데이터를 불러오고 로드
+    - buffer cache 와 page cache 가 같은 의미로 사용됨
