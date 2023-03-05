@@ -83,3 +83,29 @@
     - C-SCAN 의 응용버전
 
 <br>
+
+### Swap-Space Management
+
+- Disk 를 사용하는 두 가지 이유
+    - Memory 의 volatile(휘발성) 한 특성
+    - 프로그램 실행을 위한 memory 공간 부족
+
+<br>
+
+- Swap-space
+    - Virtual memory system 에서는 디스크를 memory의 연장 공간으로 사용
+    - 파일시스템 내부에 둘 수도 있으나, 별도 partition 사용이 일반적
+
+<br>
+
+### RAID - Redundant Array of Independent Disks
+
+> 여러 개의 디스크를 묶어서 사용
+
+- 사용 목적
+    - 디스크 처리 속도 향상
+        - 여러 디스크에 block의 내용을 분산 저장
+        - 병렬적으로 읽어 옴
+    - 신뢰성 향상
+        - 동일 정보를 여러 디스크에 중복 저장
+        - 하나의 디스크가 고장시 다른 디스크에서 읽어옴
