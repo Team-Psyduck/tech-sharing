@@ -1,4 +1,3 @@
-
 컴퓨터 네트워크 및 인터넷의 역사(1)
 
 1. Network structure
@@ -6,11 +5,9 @@
   - end system : web, email.. 어플리케이션
   - client/server model : web browser, server.. 서버와 클라이언트
   - peero to peer model : torrent, skype..
-  
 (2) Network Core
   - router
   - network of networks
-  
 (3) Access networks, physical media
   - link (Wifi, Lan..)
    
@@ -21,7 +18,6 @@
     - flow control : 흐름 제어, 송신자는 수신자의 처리하는 속도에 맞춰 전송
     - congestion control : 혼잡 제어, 네트워크 상황에 맞춰서 전송
     - where ? HTTP, FTP, Telnet, SMTP
-  
   - connectionless service (UDP : 비연결 서비스) -> faster
     - connectionless
     - unreliable data transfer
@@ -62,11 +58,3 @@
     - 조절할 수 없음(빛의 속도와 관계)
 (5) Packet Loss
   - TCP : 최초 데이터를 전송한 Client || Server에서 재전송 (모든 매커니즘은 Edge에서 담당, Core는 단순 작업)
-
-    
-    
-    
-  
-   
-   
-   
