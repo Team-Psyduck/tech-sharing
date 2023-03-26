@@ -1,0 +1,43 @@
+ System Structure & Program Execution
+ 
+ 1. Computer structure
+  (1) 기본 구성
+    - Computer : CPU, Memory (+ Memory Controller, Timer, DMA Controller..)
+    - I/O device : Disk, Keyboard, Printer, Monitor
+    - Device Controller : CPU의 속도가 빠르므로 컨트롤을 직접 처리하지 않음
+    - Buffer : I/O 값을 임시 저장
+    - Mode bit : Kernel과 Client 구분
+    - Interrupt line : I/O 입력을 처리
+    - Timer : 특정 프로그램이 CPU를 독점하지 못하도록 제어
+  (2) Mode bit
+    - 보안을 해칠 수 있는 중요한 명령어는 OS 코드만 실행 가능하도록 규정
+    - Interrupt, Exception 시 Mode bit 0(Monitor mode)
+    - 사용자 프로그램에 CPU 할당 시 Mode bit 1(User mode)
+  (2) Timer
+    - 타이머는 매 클럭 틱마다 1씩 감소
+    - 타이머 값이 0이 되면 타이머 인터럽트 발생
+  (3) Device COntorller
+    - I/O가 끝났을 경우 Interrupt로 CPU에 알림
+    - Local Buffer와 Device 사이에서 I/O가 발생
+  (4) DMA(Direct Memory Access)
+    - CPU가 매번 Interrupt되면 성능 저하
+    - DMA가 요청을 받아 메모리에서 처리하고 CPU에 한 번만 Interrupt
+  (5) I/O
+    - 모든 입출력 명령은 '특권 명령'
+    - 과정
+      > System call (운영체제에 I/O 요청)
+      > Trap(Software Inturrept)
+      > 인터럽트 벡터가 가리키는 인터럽트 서비스 루틴으로 제어권 이동
+      > I/O 수행
+      > 제어권을 System call 다음 명령으로 이동
+  (6) Interrupt
+    - 인터럽트 당한 시점의 레지스터와 program counter를 save한 후 cpu의 제어를 인터럽트 처리 루틴에 넘긴다.
+    - 1. Inturrept (하드웨어 인터럽트)
+         > I/O 처리가 끝났을 때
+    - 2. Trap (소프트웨어 인터럽트)
+         > Exception, Systemcall(I/O 요청 시)
+    - Interrupt Vector : 인터럽트의 처리 루틴 주소를 가지고 있음(어떤 함수를 실행할 것인지)
+    - Interrupt Service Routine : 인터럽트를 처리하는 커널 함수(실제 처리)
+  (7) Systemcall
+    - 사용자 프로그램이 Kernel 서비스를 받기 위해 운영체제를 호출하는 것
+    

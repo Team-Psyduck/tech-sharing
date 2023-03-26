@@ -1,0 +1,29 @@
+
+1. What is socket
+ (1) 어플리케이션과 네트워크의 통신을 위한 인터페이스 (api of os)
+ (2) 소켓의 종류
+   - Socket Stream (a.k.a TCP)
+   - Socket Datagram (a.k.a UDP)
+ (3) Socket Function (TCP case)
+   - 1. server : (소켓 생성) socket() -> (ip and port 바인딩) bind() -> (대기 상태 설정) listen() -> (요청이 올 때까지 대기) accept()
+   - 2. client : (소켓 생성) socket() -> (ip + port로 연결항 tcp 지정) conenct()
+   - 3. server : read()
+   - 4. after : 3-way handshake
+   - 5. final : close()
+
+2. Multiplexing/ Demultiplexing
+ (1) Multiplexing (Like bus || train)
+   - Message를 Transport Layer로 전송할 때 동작
+   - 하나의 TCP 연결을 사용해 여러 개의 HTTP 요청을 동시에 전송
+ (2) Demultiplexing (Like waiter)
+   - Segment || Datagram을 Application Layer로 전송할 때 동작
+   - Segment의 헤더에 있는 정보로 판단(Source Port, Destination Port)
+   - UDP의 경우 : Dest IP/ dest Port가 같다면 같은 소켓으로 demux
+   - TCP의 경우 : Dest IP/ Dest Port/ Source IP/ Source Port가 모두 같아야 같은 소켓으로 demux
+   
+3. UDP
+ (1) datagram header
+   - header (source port/ dest port/ length/ checksum) + payload
+   - no connection establishment
+   - small header size
+   - no congestion control

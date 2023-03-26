@@ -1,0 +1,86 @@
+1. What is OS?
+ (1) 컴퓨터 하드웨어 바로 위에 설치되어 사용자 및 다른 모든 소프트웨어와 하드웨어를 연결하는 소프트웨어 계층
+ (2) 좁은 범위의 OS : Kernel
+ (3) 넓은 범위의 OS : Kernel + Utility
+
+2. purpose of OS?
+ (1) 자원 관리
+   - Processor, Memory, I/O 장치에 대한 형평성 있는 자원 분배
+   - 사용자 및 운영체제 보호
+   - Process, File, Message 등을 관리
+ (2) 시스템을 편리하게 사용할 수 있는 환경 제공
+   - 하드웨어를 직접 다루는 복잡한 부분을 운영체제가 대행
+   - 각 Client가 다른 Process의 동작을 신경쓰지 않고 동작
+
+3. type of OS? (동시 작업 가능 여부, 처리 방식, 다중 사용자 접근 여부)
+ (1) single tasking
+   - ex) MS-DOS
+ (2) multi tasking
+   - ex) UNIX, MS Windows, MAC OS..
+ (3) single user
+   - ex) MS-DOS, MS Windows
+ (4) multi user (한 운영체제를 여러 사용자가 동시에 접근할 수 있는지)
+   - UNIX, NT Server
+ (5) batch processing
+   - 작업 요청을 일정량 모아서 한 번에 처리한다.
+   - 현대 OS에서는 찾아볼 수 없음.
+   - ex) Punch Card (작업 카드를 적재하면 한 번에 처리)
+ (6) time sharing(시분할)
+   - 컴퓨터 처리 능력을 일정한 시간 단위로 분할하여 사용
+   - 일괄 처리 시스템에 비해 짧은 응답시간
+ (7) realtime OS
+   - 정해진 시간 안에 어떤 작업이 반드시 종료됨이 보장되어야하는 실시간 시스템을 위한 OS
+   - ex) 원자로/공장 제어, 미사일 제어, 반도체 장비, 로보트 제어
+   - Hard realtime system || soft realtime system
+   
+4. 용어 정리
+ (1) Multitasking
+  - 동시성
+  - 동시에 실행되는 것처럼 보이지만 실제로는 시분할로 동작함
+ (2) Multiprogramming
+  - 여러 프로그램이 메모리에 동시에 적재된 상태
+ (3) Time sharing
+  - Multitasking과 유사하나 CPU 관점의 용어
+ (4) Multiprocess
+  - 위와 동일
+ (5) Multiprocessor
+  - 하나의 컴퓨터에 여러 processor가 존재하여 "벙렬 처리"
+ 
+5. 운영체제별 특징
+ (1) UNIX
+  - 대부분의 코드가 C언어로 작성됨
+  - 높은 이식성
+  - 최소한의 커널 구조
+  - 확장성
+  - 오픈소스
+  - 개발에 용이
+  - 다양한 버전
+ (2) DOS
+  - 단일 사용자용 운영체제
+  - 메모리 능력의 한계
+ (3) MS Windows
+  - 다중 작업용 GUI 기반 OS
+  - 네트워크 환경 강화
+  - DOS용 응용 프로그램 하위호환
+  - 불안정성(초기 Windows)
+  - 풍부한 지원 소프트웨어
+ (4) ETC
+  - PalmOS, Pocket PC(WinCE), Tiny OS
+  
+6. Structure of OS
+ (1) CPU Scheduling
+  - 프로세스에 대한 CPU 할당 관리
+ (2) Memory management
+  - 메모리 자원을 효율적으로 분배 (페이지 교체 알고리즘)
+ (3) File management
+  - 효율적인 Disk I/O 순서 관리
+ (4) I/O management
+  - Inturrept를 기반 I/O 관리
+ (5) Process management
+  - 프로세스의 생성, 삭제
+  - 자원 할당
+  - 프로세스간 통신(IPC)
+ (6) etc
+  - secure
+  - networking
+  - command line interpreter
