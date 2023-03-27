@@ -1,0 +1,56 @@
+전송 계층(1)
+
+1. rdt 3.0 (reliable data transfer)
+ (1) performance of rdt 3.0
+  - first packet bit transmitted / last packet bit transmitted => L / R
+  - RTT (Round trip time)
+  - Sender = (L/R) / (RTT + L/R) = .008 / 30.008 = 0.00027
+   -> 신뢰성 있는 통신을 제공하지만 비효율적이다.
+
+2. Pipelining
+ (1) performance
+  - 한 번에 3개의 데이터를 전송한다면?
+  - Sender = (3 * L/R) / (RTT + L/R) = .024 / 30.008 - 0.0008
+   -> 한 번에 여러 파이프라인을 사용할수록 네트워크를 효율적으로 사용 가능하다.
+
+(2) go-back-N
+  - "window" of up to N, consecutive unack'ed packets allowed
+   -> ex) 0부터 12까지의 패킷이 존재한다면, 윈도우 사이즈가 4일 때 0~3, 4~7, 8~11, 12로 전송
+   -> ex) "ACK 11" ? 11번 패킷까지 정상적으로 전송되었다는 의미로 사용
+   -> ex) window 사이즈가 4일 때, 4~7을 전송하고 타이머가 끝날 때까지 ACK가 오지 않을 경우 ACK가 오지 않은 패킷을 윈도우의 Left로 지정해서 재전송
+  - receiver에 벌도의 Buffer가 없으므로 패킷이 순차적으로 전송되지 않으면 패킷을 버림
+   -> ex) Sender : 0~3 전송
+          Receiver : 0, 1, 3, 2 순서로 도착 ? 3을 버림
+          Sender : ACK 2를 수신했으므로 3~6을 전송
+          Receiver : 3, 5, 6, 4 순서로 도착 ? 5, 6을 버림
+          Sender : ACK 4를 수신했으므로 5~8을 전송
+  - GBN인 이유 ? 패킷 유실 시 N만큼 윈도우의 Left가 되돌아감
+  - Sender는 윈도우에 있는 패킷은 버퍼에 보관함 (재전송할 우려가 있으므로)
+
+(3) selective repeat
+  - GBN과 달리 유실된 패킷만 재전송한다.
+   -> ACK의 의미가 GBN과 달리 "~까지 받았다"가 아닌 "N을 받았다"로 바뀌어야함.
+  - Receiver는 순서에 맞지 않게 들어온 패킷이더라도 버퍼에 임시로 저장하고, 결과적으로(eventually) 순서를 맞춰서 어플리케이션 계층으로 전송
+   -> ex) Sender : 0~3 전송
+          Receiver : 0, 1, 3 순서로 도착 + 2 유실 ? 3을 저장하고 "ACK 3"을 전송
+          Sender : "ACK 2"를 받지 못했으므로 윈도우에서 Pakcet 2만 재전송
+          Receiver : "ACK 2" 전송
+          Sender : 4~7 전송
+
+(4) selective repeat : dilemma
+  - sequence number를 적게 사용할 수록 네트워크를 최적화할 수 있다.
+  - window size == sequence number일 경우
+   -> ex) Sender : 0~3 전송
+          Receiver : 0, 1, 2 도착 + 3 유실
+          Sender : 3 + 0~2 전송
+          Receiver : 기존의 0~2와 새로운 0~2 packet을 구별할 수 없음
+  - window size + 2 == sequnce number일 경우
+   -> ex) Sender : 0~ 3 전송
+          Receiver : 0, 1, 2 도착 + 3 유실
+          Sender : 3 + 5~6 전송
+  - 최적의 seq 종류 ? window size * 2
+
+(4) selective repeat : limitation
+  - 모든 패킷에 타이머가 필요함
+  - 모든 윈도우가 각자 tcp 커넥션이 필요함
+  - 결론 : 실제로 실현 불가능(비효율)
