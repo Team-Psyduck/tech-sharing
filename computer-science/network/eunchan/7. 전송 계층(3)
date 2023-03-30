@@ -1,0 +1,11 @@
+
+전송 계층(2)
+
+1. Flow Control
+ (1) 기능
+  - receiver가 받아들일 수 있는 만큼(buffer size) 의 패킷을 전송
+  - TCP Header의 receive buffer 값을 기준으로 판단
+  
+ 
+
+
