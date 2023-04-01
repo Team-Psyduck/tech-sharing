@@ -65,7 +65,7 @@
 > process 는 socket 과 메시지를 주고받는다.
 
 - 소켓은 서로 다른 프로세스 간의 통신을 가능하게 하는 소프트웨어 endpoint
-- socket 은 door 역할을 한다.
+- socket 은 Application Layer 와 Transport Layer 사이의 door 역할을 한다.
 
 <br>
 
