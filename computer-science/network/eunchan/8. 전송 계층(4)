@@ -1,0 +1,33 @@
+전송 계층(4)
+
+1. Congestion control
+ (1) 3 main phases
+   -> slow start : 우선 최소한의 패킷을 전송해서 혼잡 상태 확인
+   -> additive increase : 패킷을 곱연산으로 증가, 임계점 도달 시 linear하게 증가
+   -> multiplicative decrease : 혼잡한 상황에서는 빠른 속도로 패킷 감소
+   - size의 기준은 MSS(maximum segment size)
+   
+ (2) 전송 속도 예측
+   - CongWin(Congestion Window Size) = RTT 범위 내에서 한 번에 보낼 수 있는 윈도우 사이즈
+   - rate = CongWin/RTT Bytes/sec
+   - CongWin is dynamic, function of perceived network congestion
+   
+ (3) Slow start : detail
+   - When Connection begins, increase rate exponentially until first toss event
+     > double congWin evry RTT
+     > done by intermenting Congwin for evry ACK received
+   - Summary : inital rate is slow but ramps up exponentially fast
+ 
+ (4) TCP Tahoe & TCP Reno
+   - TCP Tahoe
+     > 80년대 개발, 현재는 사용되지 않음
+     > 3 duplicate ACK인 경우와 Timeout인 경우에 똑같이 대응한다는 단점이 존재
+   - TCP Reno
+     > 3 duplicate ACK인 경우 전송량을 감소시키지 않음
+     
+ (5) TCP Fairness
+   - Two competing session
+     > Additive increase give slope of 1, as throughput increases
+     > multiplicative decrease decreases throughput proportionally
+     > 즉, 서로 증가하다가 multiplicative decrase를 반복해서 중간 지점에 fairness하게 통신
+  
