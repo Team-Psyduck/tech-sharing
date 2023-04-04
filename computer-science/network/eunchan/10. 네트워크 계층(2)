@@ -1,0 +1,58 @@
+네트워크 계층(2)
+
+1. Ip datagram format
+ - version
+ - header length
+ - type of service
+ - length
+ - identifier(16bit)
+ - flgs
+ - fragment offset
+ - upper layer
+ - options
+ - source ip addr(32bit)/ dest ip addr(32bit)
+ - time to live
+ - header chedksum
+ - data(segment or datagram)
+ - 대부분의 패킷은 기본 사이즈인 40byte (Ack Packet)
+ 
+2. Ip address(IPv4)
+ - A unique 32 bit number
+ - identifies an interface
+ - represented in dotted-quad notation
+ 
+ (1) Scalability Challnge
+  - suppose hosts had arbitary addresses?
+    > then every router would need a lot of information
+  - hierarchical addressing : ip prefixes
+    > network and host portions (left and right)
+  - scalability imporved
+    > number related hosts from a common subnet
+
+ (2) classful addressing(in the old day)
+  - only fixed allocation sizes
+  - class A(/8 -> 2^24), class B(/16 -> 2/^16), class C(/24 -> 2/^12)
+ 
+ (3) classless inter-domain routing(CIDR)
+  - use two 32-bit numbers to represent a network
+  - network number = ip address + mask
+  
+ (4) longest prefix match forwarding
+  - destination-based forwarding
+    > router identifies longest-matching prefix
+    > cute algorithmic problem : very fast lookups
+  - ex : dest = 201.10.6.17
+         forwarding table = 4.0.0.0/8, 4.73.128.0/17, 201.10.6.17/23
+         -> search 201.10.6.17
+         
+  (5) subnets
+   - subnet part - high order bits
+   - host part - low order bits
+   - device interfaces with same subnet part of ip address
+   - can physically reach each other without intervending router
+   - 라우터는 여러 서브넷에 걸쳐있음
+
+ (6) network address translation (NAT)
+   - rewrites the ip address
+    > make "insied" look like single ip addr
+    > change header checksums accordingly
