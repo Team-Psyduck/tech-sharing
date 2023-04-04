@@ -1,0 +1,14 @@
+네트워크 계층(1)
+
+1. Network Layer
+ (1) 기능
+  - transport segement from sending to receiving host
+  - on sending side encapsulates segements into datagrams
+  - on receiving side, delivers segements to trasnport layer
+  - network layer protocols in every host, router
+  - router examines header
+  
+ (2) interplay between routing and forwarding(in router)
+  - destination <-> forwarding table entry 매치시켜서 전송
+  - routing : forwarding table을 만드는 것
+  - 주소 범위로 관리됨(longest prefix matching)
