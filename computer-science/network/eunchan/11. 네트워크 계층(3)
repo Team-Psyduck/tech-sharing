@@ -1,0 +1,57 @@
+네트워크 계층(3)
+
+1. Network Address Translation(NAT)
+  (1) example
+   (NAT transalation table)
+   WAN side addr           | LAN side addr
+   138.76.29.7.5001          10.0.4
+   138.76.29.7.5002          10.0.5
+
+  (2) problem
+   - Routers are not supposed to look at port #s
+     > network layer should care only about ip header
+     > and not be looking at the port numbers at all
+   - NAT violates the end-to-end arguement
+     > network node should not modify the packet
+   - IPv6 is a cleaner solution
+     > better to migrate than to limp along with a hack
+  
+2. Dynamic Host Configuration Protocol(DHCP)
+  (1) example
+    IP : 192.168.1.47
+    Mask : 255.255.255.0
+    router : 192.168.1.1
+    DNS : 192.168.1.1
+    > subnet : 192.168.1.0
+    > IP, Mask, Router, DNS는 누가 설정했는가? DHCP
+   
+  (2) how dose a host get ip addr?
+   - hard-coded by system admin in a file
+   - DHCP : dynamically get address from as server
+   
+  (3) significance
+   - can renew its lease on addr in use
+   - allows reuse of addresses
+   - support for mobile users how want to join network
+   
+  (4) DHCP(일반적으로 local router) client-server scenario
+   - host : broadcasts "DHCP discover"
+   - DHCP server : responsds with "DHCP offer"
+   - host : requests ip addr "DHCP request"
+   - DHCP server : sends address "DHCP ack"
+   
+   (5) Conclusion
+   - 통신사에서 네트워크 IP를 할당 받는다면?
+   - NAT, DHCP, DNS 모두 하나의 모뎀(라우터)에서 동작
+   
+   (6) IP fragmentation, reassembly
+   - example
+    > 4000byte datagram
+    > MTU = 1500bytes
+    > fragmentation : 1500(flag=1, offset=0), 1500(flag=1, offset=185), 1040(flag=0, offset=370)
+   - loss?
+    > reassembly fail -> tcp 재전송
+   
+   
+
+
