@@ -1,0 +1,66 @@
+네트워크 계층(5)
+
+1. Distance Vector algorithm
+  (1) 자신의 distance vector가 변경된 경우?
+    - neighbor router에게 변경된 disance vector 값을 전파
+  (2) example 
+  - time 0
+      x  y  z
+    x 0  4  50
+    y ?  ?  ?
+    z ?  ?  ?
+
+      x  y  z
+    x ?  ?  ?
+    y 4  0  1
+    z ?  ?  ?
+
+      x  y  z
+    x ?  ?  ?
+    y ?  ?  ?
+    z 50 1  0
+  
+  - time 1
+      x  y  z
+    x 0  4  dx(z) = min( c(x,y) + dx(z), c(x,z) + dx(z)) = 5
+    y 4  0  1
+    z 50  1  0
+    
+      x  y  z
+    x 0  4  50
+    y 4  0  1
+    z 50  1  0
+    
+      x  y  z
+    x 0  4  50
+    y 4  0  1
+    z 5  1  0
+    
+  - time 2 (stable : 변경된 테이블 기준으로 모든 값을 계산해보고, 더이상 변화가 없는 상태)
+      x  y  z
+    x 0  4  5
+    y 4  0  1
+    z 50  1  0
+    
+      x  y  z
+    x 0  4  5
+    y 4  0  1
+    z 50  1  0
+    
+      x  y  z
+    x 0  4  5
+    y 4  0  1
+    z 5  1  0 
+
+  (3) detail
+    Iterative, asynchronous : each local itoration caused by
+                                -> local link cost change
+                                -> DV update message from neighbor
+    distributed :
+     -> each node notifies neighbors only when its DV changes
+    each node : while (!stable) {
+                   wait for (change in local link cost or msg from neighbor)
+                   recompute estimates
+                   if (Div to any dest has changed) norify neighbors
+                   }
+                   
