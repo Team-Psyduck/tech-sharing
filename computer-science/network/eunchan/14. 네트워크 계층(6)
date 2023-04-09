@@ -1,0 +1,43 @@
+네트워크 계층(6)
+
+1. Posion reverse
+  - 어떤 라우터가 특정 인터페이스로 패킷을 전송했을 때, 
+  패킷이 자기한테 다시 돌아오는 경우 해당 라우터로부터 수신한 경로의 값을 무한대로 설정하여 재귀를 막는 것
+
+2. Hierarchical routing
+  (1) Interconnected ASes
+    - forwarding table configured by both infra- and inter-AS routing algorithm
+      > infra-AS sets entries for internal dests
+      > inter-AS & Infra-AS sets entries for external ests
+   
+  (2) Hierarchical routing
+    - aggregate routers into regions, "autonomous system" (AS)
+    - routers in same AS run smae routing protocol
+      > "Infra-AS" routing protocol
+      > routers in different AS can run different infra-AS routing protocol
+    - gateway router
+      > at "edge" of its own AS
+      > has link to router in another AS
+       
+  (3) AS (Autonomous System)
+    - 자치권을 가진 라우팅 도메인
+    - 각자 자신의 고유 넘버를 가짐
+    - Ex> 인터넷 사업자, 대학교, 병원 ..
+    
+  (4) Relationships between networks
+    - Some Costs of Running an ISP
+      > people, physical connectivity and bandwidht, hardware, data center space..
+      > AS 사이에는 Provider(가령, 인터넷 사업자)와 Customer가 존재함
+      
+  (5) Peering relationship
+    - 합의하에 별도 요금 없이 통신하는 AS (각 인터넷 사업체간의 트래픽)
+    - A -> B -> C로 거쳐가는 경우? BGP
+  
+  (5) Implementing inter-network relationships with BGP
+    - BGP ? Border Gateway Protocol
+    - is a Policy-Based routing Protocol (단순히 최적화가 아닌 AS간의 정책이 우선)
+    - is the do facto EGP of today's global internet
+    - relatively simple protocol, but configuration is complex and the entire world can see, and be impacted by, your mistake.
+    
+    - Enforce order of route preference
+      - Customer > Peer > Provider (거리보다 내가 갑인 경우 => 비용이 적게 드는 경우를 우선 선택함)
