@@ -1,0 +1,74 @@
+네트워크 계층(4)
+
+1. ICMP
+  (1) ICMP (Internet Control Message Protocol)
+    - used by hosts & routers to communicate network-level information
+      > error reporting : unrecheable host, network, port, protocol
+      > echo request/reply(used by ping)
+  (2) network-layer "above" IP
+    - ICMP msgs carried in IP datagream
+  (3) ICMP message : type, code plus first 8 bytes of IP datagram causing error
+  
+2. IPv6
+  (1) datagram format
+    - priority: identify priority among datagrams in flow
+    - flow label: identify datagrams in smae flow. (concept of flow not well defined)
+    - next header: identify upper layer protocol for datat
+  (2) transition from IPv4 to IPv6
+    - not all routers can be upgraded simultaneously
+      > no flag days
+      > how will network operate with mixed IPv4 and IPv6 routers?
+    - tunneling : IPb6 datagram carried as payload in IPv4 datagram among IPv4 routers
+
+3. Interplay between routing, forwarding
+  (1) forwarding lookup
+    - longest matching
+  
+  (2) forwarding table algorithm
+    - graph abstraction : costs
+      > key question : what is the least-cost path between A and Z?
+      > routhing algorithm : algorithm that finds that least cost path
+   
+  (3) Routing algorithm classification
+    - global or decentralized information?
+      - global : all routers have complete topology, link cost info
+                 -> link state algorithm (dijkstra algorithm)
+      - decentralized : router knows physically-connected neighbors, link costs to neighbors
+                        iterative process of computation, exchange of info with neighbors
+                        -> distance vector algorithm
+     
+    - static or dynamic?
+      - static : routes change slowly over time
+      - dynamic : routes change more quickly
+                  periodic update
+                  in response to ling cost change
+                  
+  (4) A Link-state routing algorithm
+    - dijkstra's algorithm
+      - net ropology, link costs known to all nodes
+      - computes least cost path frome one node to all other nodes
+      - iterative: after k iterations, know least cost path to k dest.'s
+    - notation:
+      C(x,y) : link to cost from node x to y
+      D(v) : current value of cost of path from source to dest.v
+      p(v) : predecessor node along path from source to v
+      N' : Set of nodes whose least cost path definitively known (이미 확정된 최단거리를 의미)
+    - discussion
+      - algorithm complexity?
+        > each iteration: need to check all nodes. w. not in N
+        > n(n+1)/2 comparisons: O(n^2)
+        > more efficient implementations possible: O(nlogn)
+      - oscillations possible
+        > e.g> support link cost equals amout of carried traffic
+    - case : real world?
+      - How can we calculate the weights of all nodes around the world?
+        > We only calculate the weights among the routers belonging to the same network
+  
+  (5) distance vector algorithm
+    - Bellman-Ford equation
+      let 
+          dx(y) := cost of least-cost path from x to y
+      then
+          dx(y) = min {c(x,v) +dv(y)}
+      
+

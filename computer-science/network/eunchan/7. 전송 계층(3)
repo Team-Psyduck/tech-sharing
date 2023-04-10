@@ -1,0 +1,36 @@
+
+전송 계층(3)
+
+1. Flow Control
+ (1) 기능
+  - receiver가 받아들일 수 있는 만큼(buffer size) 의 패킷을 전송
+  - TCP Header의 receive buffer 값을 기준으로 판단
+  - 보낼 데이터가 없더라도 receive buffer에 대한 값을 알려야하므로 주기적으로 패킷을 전송함
+  
+2. 3-way handshake
+ (1) 과정
+  - Client : choose init seq num, x send TCP SYN msg (Syn bit=1, seq=x)
+  - Server : choose init seq num, y send TCP SYNACK msg, asking SYN (SYN bit=1, Seq=y, ACK bit=1; ACk num = x+1)
+  - Client : received SYNACK(x) indicates server is live; send ACK for SYNACK; this segment may contain client-to-server data (ACK bit=1, ACK num=y+1)
+  - Server : received ACK(y) indicates client is live
+
+3. 4-way handshake
+ (1) 과정
+  - Client : FIN
+  - Server : ACK
+  - Server : FIN(close)
+  - Client : ACK
+  - Client : timed wait
+  - Client : Closed
+ (2) timed wait
+  - 만약 마지막 Client가 보낸 ACK가 유실될 경우?
+  - Server는 ACK를 재전송
+  - 이 때, Client가 이미 closed 상태라면 문제가 발생하므로 timed wait가 필요
+ 
+4. congestion contorl
+ (1) 의의
+  - 네트워크가 혼잡한 상황에서 응답을 받지 못했다고 계속해서 요청을 전송한다면? 전체 네트워크 속도가 저하됨
+ (2) 종류
+  - End to end congestion control -> ACK 기반으로 예측(부정확)
+  - Network assisted congestion control -> 불가능(라우터에서 처리해야함)
+

@@ -1,0 +1,21 @@
+어플리케이션 계층(2)
+
+1. Principles of Reliable Data Transfer
+ (1) 신뢰할 수 없는 통신에서 발생하는 문제
+  - Message error
+  - Message loss
+ (2) 어떻게 메세지의 신뢰성을 확보할 것인가
+  2-1. Error detection
+    - Sender : add checksum bit
+    - Receiver : (cechksum == error) ? NAK (Negative Acknowledgements) : ACK (Acknowledgements)
+      -> Limitation : Receiver 입장에서는 재전송된 패킷이 중복된 것인지, 아닌지 알 수가 없다.
+      -> Solution : Sequence Number(Syn)
+         -> Sequence Number는 몇 개 필요한가? (0과 1만 보내면 충분하다.)
+         -> Ex) Sender가 0을 전송 -> ACK가 오지 않는다. -> 다시 0을 전송. -> Receiver는 정상적으로 데이터를 받고 1읇 보낸다.
+  2-2. Timer
+     - Sender는 패킷을 보낼 때마다 ACK를 받을 때까지의 타이머를 설정한다.
+     - 만약 해당 타이머가 끝날 때까지 응답이 반환되지 않으면 재전송한다.
+       -> Limitation : 타이머가 짧으면 중복 데이터를 전송, 타이머가 길면 불필요한 통신 지연이 발생
+  (3) Pipelined Protocol
+    - 만약 패킷을 보내고 응답이 돌아올 때까지 대기하는 걸 반복한다면 불필요한 지연 시간이 늘어난다.
+    - 따라서 파이프라인을 이용해 한 번에 여러 요청을 계속해서 보내는 식으로 동작한다.

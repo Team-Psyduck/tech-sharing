@@ -1,0 +1,66 @@
+전송 계층(2)
+
+1. TCP
+ (1) Overview
+  - point-topoint
+   -> one-sender, one-receiver (socket : socket)
+  - reliable, in-order byte stream
+  - sender & receiver buffer
+   -> sender의 buffer 크기만큼 ACK와 관계 없이 데이터를 한 번에 전송
+   -> receiver는 순서대로 오지 않은 패킷을 buffer에 임시로 보관함
+   -> sender와 receiver가 따로 있는 게 아니기 때문에 두가지 buffer를 모두 가지고 있어야함
+  - full duplex data
+  - connection-oriented
+  - flow controlled
+   -> receiver의 처리 능력에 맞게 전송
+ 
+ (2) TCP segment structure
+  - source port(16bit) / dest port(16bit)
+  - sequence number
+  - acknowledgement number
+  - push dat new
+  - receive window
+  - checksum
+  - Urg data pnter
+  - Options (variable length)
+  - application data (variable length)
+  
+ (3) Seq and ACK
+  - ACK 10 => 9번까지 정상 전송되었다, 10을 보내라.
+   -> ex) HostA : Seq=42, ACK=79, data='C'
+          HostB : (host Acks receipt of 'C'. echoes back 'C') -> Seq=79, ACK=43, data='C'
+          HostA : (host Acks receipt of echoed 'C') -> Seq=43, ACK=80
+  - echo와 데이터를 어떻게 구별하는가 ? Header
+  - 모든 요청에 대해 다 ACK를 처리할 필요가 있는가 ? 500ms 정도의 지연 시간을 두고 처리하여 전체에 이상이 없다면 일부만 전송할 수 있음
+  
+ (4) Timeout
+  - timeout이 크다 ? 패킷 유실 시 지연
+  - timeout이 작다 ? 불필요한 네트워크 트래픽 발생
+  - timeout == rtt로 사용하기에는 전송 속도가 일정하지 않음
+    -> EstimtedRTT(네트워크 상황에 따른 예상 데이터 전송 시간) + margin을 RTT로 설정
+  
+ (5) TCP retransmission seenario
+  - ex) HostA : seq=92, 8 byte data
+        HostB : (ACK=100 Loss)
+        HostA : seq=92, 8 byte data
+        HostB : ACK=100
+  - ex) HostA : seq=92, 8byte data + seq=100, 29byte data
+        (seq 92 Timeout)
+        HostA : seq=92, 8byte data
+        (seq 92 Timer reset)
+        HostB : ACK=100 + ACK=120
+        HostB : ACK=120 (마지막으로 받은 데이터를 기준으로 ACK 재전송)
+  - ex) HostA : seq=92, 8byte data
+        HostB : (ACK=100 Loss)
+        HostA : seq=100, 29byte data
+        HostB : ACK=120 (ACK 100이 없어도 상관 없음)
+   
+  (6) past retransmit
+   - 동일한 ACK가 반복적으로 전송될 때, 해당 패킷을 타임아웃 이전에 빠르게 재전송
+   - ex) HostA : seq 0 ~ 99 전송
+         (seq 10 loss)
+         HostB : ack 10 무한 재전송
+   
+   
+   
+   
